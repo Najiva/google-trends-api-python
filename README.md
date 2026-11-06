@@ -47,7 +47,7 @@ Options:
 
 Output:
 
-- `trends_summary.csv`: one row per keyword × country with `trend`, `trendChangePercent`, `percentOfPeak`, `peakDate`, `latestValue` and `topRisingQueries`
+- `trends_summary.csv`: one row per keyword × country with `trend`, `trendChangePercent`, `percentOfPeak`, `peakDate`, `latestValue`, `topRisingQueries` and `otherRisingQueries`
 - `trends_series.csv`: the interest-over-time series in long format (`keyword, geo, date, value, isPartial`), ready for pandas or a spreadsheet
 
 `trend` compares the average of the last 12 complete points with the 12 before them (±10% counts as flat).
@@ -82,7 +82,7 @@ For a few keywords a day you don't need any of this:
 ## Notes
 
 - Google Trends values are relative (0–100) per query, not search volumes.
-- "Rising" related queries come straight from Google and sometimes include odd "Breakout" entries.
+- Google's "rising" related queries currently include a lot of unrelated junk (for "air fryer" in the US: "laptop stand", "hotel booking", "solar panels"; the Google Trends website shows the same). `topRisingQueries` keeps only queries that mention your keyword; the rest are in `otherRisingQueries`.
 
 ## License
 

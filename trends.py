@@ -21,7 +21,7 @@ from apify_client import ApifyClient
 
 ACTOR = "najiva/google-trends-reliable"
 SUMMARY_FIELDS = ["keyword", "geo", "timeframe", "trend", "trendChangePercent", "percentOfPeak",
-                  "peakDate", "latestValue", "topRisingQueries"]
+                  "peakDate", "latestValue", "topRisingQueries", "otherRisingQueries"]
 
 
 def fetch(keywords, geos, timeframe, token):
@@ -50,7 +50,8 @@ def main():
         w = csv.DictWriter(f, fieldnames=SUMMARY_FIELDS, extrasaction="ignore")
         w.writeheader()
         for r in rows:
-            w.writerow({**r, "topRisingQueries": "; ".join(r.get("topRisingQueries") or [])})
+            w.writerow({**r, "topRisingQueries": "; ".join(r.get("topRisingQueries") or []),
+                        "otherRisingQueries": "; ".join(r.get("otherRisingQueries") or [])})
 
     with open(f"{a.out}_series.csv", "w", newline="") as f:
         w = csv.writer(f)
